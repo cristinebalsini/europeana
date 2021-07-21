@@ -27,11 +27,29 @@
 </div>
 
 <div class="main-page-container">
-  <button mat-raised-button class="switch-page-button" (click)="nextPage()">NEXT PAGE</button>
+  <div>
+    <button
+      mat-raised-button
+      class="switch-page-button"
+      (click)="previousPage(index)"
+      [disabled]="index === 4 ? true : false"
+    >
+      PREVIOUS PAGE
+    </button>
+    <button
+      mat-raised-button
+      class="switch-page-button"
+      (click)="nextPage(index)"
+      [disabled]="index === 12 ? true : false"
+    >
+      NEXT PAGE
+    </button>
+  </div>
+
   <div class="card-container">
     <mat-card
       class="card"
-      *ngFor="let item of galleryList.slice(first, last); let i = index"
+      *ngFor="let item of galleryList.slice(first, index); let i = index"
     >
       <div>
         <mat-card-title>{{ item.provider }}</mat-card-title>

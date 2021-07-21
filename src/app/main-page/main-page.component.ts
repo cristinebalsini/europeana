@@ -15,8 +15,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   apiResult!: any;
   galleryList: any = [];
+  index = 4;
   first = 0;
-  last = 4;
+
 
   ngOnInit() {
     this.getPaintings();
@@ -35,8 +36,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.apiResult = response;
 
         this.apiResult.items.map((item: any, index: number) => {
-          console.log(item);
-
           this.galleryList = [
             ...this.galleryList,
             {
@@ -47,12 +46,18 @@ export class MainPageComponent implements OnInit, OnDestroy {
             },
           ];
         });
-
-        console.log(this.galleryList);
       });
   }
 
-  nextPage() {
-    console.log('working');
+
+
+  nextPage(index: number) {
+    this.first = index;
+    this.index = this.index + 4;
+  }
+
+  previousPage(index: number) {
+    this.first = this.index - 8;
+    this.index = index - 4;
   }
 }
