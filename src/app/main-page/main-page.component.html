@@ -1,12 +1,5 @@
 <div class="toolbar">
   <mat-toolbar>
-    <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with menu icon"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
     <span>Europeana Collection</span>
 
     <form
@@ -14,6 +7,7 @@
       (submit)="getPaintings(searchForm.value.text)"
     >
       <input type="text" formControlName="text" />
+
       <button mat-icon-button type="submit">
         <mat-icon>search</mat-icon>
       </button>
@@ -40,6 +34,13 @@
       NEXT PAGE
     </button>
   </div>
+  <div *ngIf="loadResults">
+    <app-card
+      [gallery]="galleryList"
+      [first]="first"
+      [index]="index"
+    ></app-card>
+  </div>
 
-  <app-card [gallery]="galleryList" [first]="first" [index]="index"></app-card>
+  <div *ngIf="!loadResults">"nothing to show"</div>
 </div>

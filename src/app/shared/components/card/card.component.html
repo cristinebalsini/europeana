@@ -16,7 +16,12 @@
     />
 
     <mat-card-actions>
-      <button mat-button>MORE</button>
+      <button
+        mat-button
+        (click)="openDialog(item.title, item.country, item.provider, item.link)"
+      >
+        MORE
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

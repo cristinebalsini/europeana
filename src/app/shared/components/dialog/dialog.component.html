@@ -1,0 +1,19 @@
+<div class="dialog-container">
+  <div>
+    <mat-icon class="icon" (click)="closeDialog()">close</mat-icon>
+  </div>
+
+  <div class="main-content">
+    <div>Title: {{ data.text.title }}</div>
+
+    <div>Provider: {{ data.text.provider }}</div>
+    <div>Country: {{ data.text.country }}</div>
+
+    <div>
+      Link:
+      <span
+        ><a href="{{ data.text.link }}" target="_blank">Europeana Link</a></span
+      >
+    </div>
+  </div>
+</div>

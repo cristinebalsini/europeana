@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PaintingService } from '../shared/services/painting/painting.service';
@@ -21,12 +21,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
   apiResult!: any;
   galleryList: EuropeanaModel[] = [];
   searchForm!: FormGroup;
-  index = 4;
-  first = 0;
+  index!: number;
+  first!: number;
+  loadResults!: boolean;
 
   ngOnInit() {
     this.buildSearchForm();
-    this.getPaintings('beethoven');
+    this.getPaintings('europe');
   }
 
   ngOnDestroy() {
@@ -39,10 +40,18 @@ export class MainPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((response) => {
         this.galleryList = [];
-        console.log(response);
-        this.apiResult = response;
 
-        this.apiResult.items.map((item: any, index: number) => {
+        this.apiResult = response;
+        console.log(this.apiResult);
+
+        this.index = 4;
+        this.first = 0;
+
+        this.loadResults = true;
+        this.apiResult.itemsCount === 12
+          ? (this.loadResults = true)
+          : (this.loadResults = false);
+        this.apiResult.items.map((item: any) => {
           this.galleryList = [
             ...this.galleryList,
             {
@@ -50,6 +59,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
               creator: item.dcCreator,
               image: item.edmPreview[0],
               provider: item.provider[0],
+              title: item.title[0],
+              link: item.guid,
             },
           ];
         });
@@ -58,7 +69,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   buildSearchForm() {
     this.searchForm = this.formBuilder.group({
-      text: ['', [Validators.required, Validators.minLength(4)]],
+      text: [''],
     });
   }
 

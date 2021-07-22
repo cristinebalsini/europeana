@@ -3,4 +3,6 @@ export default interface EuropeanaModel {
   creator: [string];
   image: [string];
   provider: [string];
+  title: [string];
+  link: string;
 }
