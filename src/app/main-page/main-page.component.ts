@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PaintingService } from '../shared/services/painting/painting.service';
+import EuropeanaModel from '../shared/models/europeana.model';
 
 @Component({
   selector: 'main-page',
@@ -11,27 +13,32 @@ import { PaintingService } from '../shared/services/painting/painting.service';
 export class MainPageComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject();
 
-  constructor(private readonly paintingService: PaintingService) {}
+  constructor(
+    private readonly paintingService: PaintingService,
+    private readonly formBuilder: FormBuilder
+  ) {}
 
   apiResult!: any;
-  galleryList: any = [];
+  galleryList: EuropeanaModel[] = [];
+  searchForm!: FormGroup;
   index = 4;
   first = 0;
 
-
   ngOnInit() {
-    this.getPaintings();
+    this.buildSearchForm();
+    this.getPaintings('beethoven');
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  getPaintings() {
+  getPaintings(e: string) {
     this.paintingService
-      .getPainting()
+      .getPainting(e)
       .pipe(takeUntil(this.destroy$))
       .subscribe((response) => {
+        this.galleryList = [];
         console.log(response);
         this.apiResult = response;
 
@@ -49,7 +56,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
       });
   }
 
-
+  buildSearchForm() {
+    this.searchForm = this.formBuilder.group({
+      text: ['', [Validators.required, Validators.minLength(4)]],
+    });
+  }
 
   nextPage(index: number) {
     this.first = index;

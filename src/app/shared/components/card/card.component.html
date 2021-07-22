@@ -1,0 +1,22 @@
+<div class="card-container">
+  <mat-card
+    class="card"
+    *ngFor="let item of gallery.slice(first, index); let i = index"
+  >
+    <div>
+      <mat-card-title>{{ item.provider }}</mat-card-title>
+      <mat-card-subtitle>{{ item.country }}</mat-card-subtitle>
+    </div>
+
+    <img
+      class="europeana-image"
+      mat-card-image
+      src="{{ item.image }}"
+      alt="europeana"
+    />
+
+    <mat-card-actions>
+      <button mat-button>MORE</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
