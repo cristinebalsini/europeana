@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import EuropeanaModel from '../../models/europeana.model';
@@ -8,16 +8,12 @@ import EuropeanaModel from '../../models/europeana.model';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.sass'],
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @Input() gallery: EuropeanaModel[] = [];
   @Input() first!: number;
   @Input() index!: number;
 
   constructor(private readonly dialog: MatDialog) {}
-
-  ngOnInit(): void {
-    this.openDialog(['teste'], ['oi'], ['oi'], 'https://www.google.com');
-  }
 
   openDialog(
     title: [string],

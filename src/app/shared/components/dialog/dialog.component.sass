@@ -1,16 +1,20 @@
+$dialog-size: 400px
+$dialog-font-size: 1.5rem
+
 .dialog-container
     display: flex
     flex-direction: column
-    width: 400px
-    height: 400px
+    width: $dialog-size
+    height: $dialog-size
 
 .main-content
     display: flex
     flex-direction: column
-    justify-content: center
-    align-items: center
+    align-items: flex-start
     height: 70%
-    border: 1px solid red
+    div
+        font-size: $dialog-font-size
+        margin-bottom: 1rem
 
 .icon
     position: relative

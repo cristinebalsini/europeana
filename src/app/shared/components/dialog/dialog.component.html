@@ -4,10 +4,19 @@
   </div>
 
   <div class="main-content">
-    <div>Title: {{ data.text.title }}</div>
+    <div>{{ data.text?.title }}</div>
 
-    <div>Provider: {{ data.text.provider }}</div>
-    <div>Country: {{ data.text.country }}</div>
+    <div>
+      <div>
+        {{ data.text?.provider }}
+      </div>
+    </div>
+
+    <div>
+      <div>
+        {{ data.text?.country }}
+      </div>
+    </div>
 
     <div>
       Link:
