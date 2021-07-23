@@ -40,9 +40,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((response) => {
         this.galleryList = [];
-
         this.apiResult = response;
-        console.log(this.apiResult);
 
         this.index = 4;
         this.first = 0;
